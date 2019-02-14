@@ -24,7 +24,7 @@ $ npm install
 2. Copy your `aws-exports` file into the src directory, or intialize a new [AWS Amplify CLI](https://github.com/aws-amplify/amplify-cli) project:
 
 ```bash
-$ npm install -g aws-amplify/cli
+$ npm insamptall -g aws-amplify/cli
 
 $ amplify init
 
@@ -52,7 +52,8 @@ $ Do you want to edit the schema now? Y
   done: Boolean
 }
 
-$ amplify push
+$ amplify 
+
 $ Do you want to generate code for your newly created GraphQL API N
 
 ```

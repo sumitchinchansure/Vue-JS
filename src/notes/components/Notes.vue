@@ -12,7 +12,11 @@
  */
 
 <template>
+<!-- v-for="todo in todos"-->
+
   <div :style="theme.container">
+      <input type="text" v-model="search" v-on:input="list" placeholder="Search title.."/>
+      <label>Search title:</label>
     <h2 :style="theme.header">Notes</h2>
     <input
       :style="theme.input"
@@ -54,7 +58,9 @@ export default {
       theme: NotesTheme || {},
       note: '',
       todos: [],
-      filter: 'all',
+      filterdTodos:[],
+      search:'',
+      //filter: 'all',
       logger: {},
       actions: {
         create: CreateTodo,
@@ -75,13 +81,31 @@ export default {
     list() {
       this.$Amplify.API.graphql(this.$Amplify.graphqlOperation(this.actions.list, {}))
       .then((res) => {
-        this.todos = res.data.listTodos.items;
+        //this.todos = res.data.listTodos.items;
+        this.todos = res.data.listTodos.items.filter(todo => {
+        return todo.note.toLowerCase().includes(this.search.toLowerCase())
+      })
         this.logger.info(`Todos successfully listed`, res)
       })
       .catch((e) => {
         this.logger.error(`Error listing Todos`, e)
       });
     },
+    //here code for filter /search
+    filterList() {
+      this.$Amplify.API.graphql(this.$Amplify.graphqlOperation(this.actions.list, {}))
+      .then((res) => {
+        this.todos = res.data.listTodos.items;
+        this.filterdTodos = this.todos.filter(todo => {
+        return todo.note.toLowerCase().includes(this.search.toLowerCase())
+      })
+        this.logger.info(`Todos successfully listed`, res)
+      })
+      .catch((e) => {
+        this.logger.error(`Error listing Todos`, e)
+      });
+    },
+
     toggle(todo) {
       this.$Amplify.API.graphql(this.$Amplify.graphqlOperation(this.actions.update, {id: todo.id, note: todo.note, done: !todo.done}))
         .then((res) => {

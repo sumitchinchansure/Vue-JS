@@ -27,8 +27,7 @@ const DeleteTodo = `mutation DeleteTodo($id: ID!) {
   deleteTodo(input: {id: $id}) {
     id
   }
-}
-`
+}`
 
 export {
   CreateTodo,

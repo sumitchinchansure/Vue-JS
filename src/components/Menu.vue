@@ -19,7 +19,7 @@
     </div>
     <div class="right">
       <a class="item" v-on:click="profile" v-if="user">Profile</a>
-      <amplify-sign-out v-if="user"></amplify-sign-out>
+      <a><amplify-sign-out v-if="user"></amplify-sign-out></a>
     </div>
   </div>
 </template>
